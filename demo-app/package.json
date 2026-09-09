@@ -1,0 +1,12 @@
+{
+  "name": "cartara-pro-showcase",
+  "version": "5.0.0",
+  "description": "Interactive Showcase & Live Demo for CartAra Pro WooCommerce Bank Transfer Plugin",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.22.2"
+  }
+}

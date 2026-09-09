@@ -1,0 +1,18 @@
+{
+  "appId": "com.cartara.companion",
+  "appName": "کارت‌آرا | CartAra",
+  "webDir": "public",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon_config_sample",
+      "iconColor": "#6366F1",
+      "sound": "beep.wav"
+    },
+    "BackgroundMode": {
+      "enable": true,
+      "title": "پایش فعال پیامک‌های بانکی کارت‌آرا",
+      "text": "سرویس پس‌زمینه برای تطبیق خودکار واریزی‌های فروشگاه فعال است."
+    }
+  }
+}

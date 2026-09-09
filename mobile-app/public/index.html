@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>اپلیکیشن همراه کارت‌آرا پرو | CartAra Mobile</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        app: {
+                            bg: '#090d16',
+                            card: '#121827',
+                            cardElevated: '#1a2236',
+                            border: '#1f293d',
+                            primary: '#6366f1',
+                            accent: '#06b6d4',
+                            success: '#10b981',
+                            danger: '#ef4444',
+                            warning: '#f59e0b'
+                        }
+                    },
+                    fontFamily: {
+                        vazir: ['Vazirmatn', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+    <style>
+        body {
+            font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        .phone-notch {
+            width: 120px;
+            height: 24px;
+            background: #000;
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
+        }
+
+        .gold-chip {
+            background: linear-gradient(135deg, #fef08a 0%, #eab308 50%, #a16207 100%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6);
+        }
+
+        .gradient-mellat { background: linear-gradient(135deg, #991b1b 0%, #dc2626 60%, #7f1d1d 100%); }
+        .gradient-blu { background: linear-gradient(135deg, #0284c7 0%, #38bdf8 60%, #0369a1 100%); }
+        .gradient-pasargad { background: linear-gradient(135deg, #b45309 0%, #f59e0b 60%, #78350f 100%); }
+
+        .shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-app-bg text-gray-100 flex items-center justify-center min-h-screen p-0 sm:p-4">
+
+    <!-- Mobile Screen Frame Container -->
+    <div class="w-full sm:max-w-[400px] h-screen sm:h-[840px] bg-app-bg sm:border-4 sm:border-gray-800 sm:rounded-[44px] overflow-hidden flex flex-col relative shadow-2xl">
+        
+        <!-- Top Status Bar & Dynamic Island -->
+        <div class="h-11 px-6 flex items-center justify-between text-xs text-gray-300 font-semibold select-none pt-1">
+            <span id="statusBarTime">۱۱:۴۵</span>
+            <div class="phone-notch flex items-center justify-center">
+                <span class="w-3 h-3 rounded-full bg-emerald-500/80 animate-ping inline-block"></span>
+            </div>
+            <div class="flex items-center gap-1.5 text-[11px]">
+                <span>5G</span>
+                <span>🔋 98%</span>
+            </div>
+        </div>
+
+        <!-- App Header Bar -->
+        <div class="px-4 py-2 flex items-center justify-between border-b border-app-border/40 bg-app-card/80 backdrop-blur-md">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-400 flex items-center justify-center text-base shadow-md shadow-brand-500/20">
+                    💳
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xs font-black text-white">فروشگاه آنلاین برتر</span>
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    </div>
+                    <div class="text-[10px] text-gray-400 flex items-center gap-1">
+                        <span>پایش پیامک فعال است</span>
+                        <span class="text-emerald-400">⚡ 24/7</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="quickScanTopBtn" class="w-8 h-8 rounded-full bg-app-cardElevated border border-app-border flex items-center justify-center text-sm text-brand-400 hover:text-white" title="اسکن سریع فیش">
+                📸
+            </button>
+        </div>
+
+        <!-- Scrollable Main View Container -->
+        <div class="flex-1 overflow-y-auto px-4 py-3 space-y-4" id="appMainScroll">
+            
+            <!-- ================= SCREEN 1: HOME & DASHBOARD ================= -->
+            <div id="screen-home" class="screen-view block space-y-4">
+                
+                <!-- Today Revenue Card -->
+                <div class="bg-gradient-to-br from-brand-600 via-indigo-700 to-purple-900 rounded-2xl p-4 text-white shadow-lg relative overflow-hidden">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-[11px] opacity-80 font-medium">مجموع واریزی‌های تاییدشده امروز</span>
+                            <div class="text-2xl font-black mt-1">۸,۴۵۰,۰۰۰ <span class="text-xs font-normal">تومان</span></div>
+                        </div>
+                        <span class="bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold">۱۴ سفارش</span>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-white/15 flex justify-between items-center text-[11px]">
+                        <span class="opacity-80">تایید خودکار پیامکی:</span>
+                        <strong class="text-emerald-300 font-bold">۹۲.۸٪ موفق (۱۲ مورد)</strong>
+                    </div>
+                </div>
+
+                <!-- Fast Actions Bar -->
+                <div class="grid grid-cols-4 gap-2 text-center text-[10px] font-bold">
+                    <button id="btnActionOcr" class="bg-app-card hover:bg-app-cardElevated border border-app-border p-2.5 rounded-xl flex flex-col items-center gap-1 transition-all">
+                        <span class="text-base text-cyan-400">📸</span>
+                        <span>اسکن فیش</span>
+                    </button>
+                    <button id="btnActionSimSms" class="bg-app-card hover:bg-app-cardElevated border border-app-border p-2.5 rounded-xl flex flex-col items-center gap-1 transition-all">
+                        <span class="text-base text-amber-400">💬</span>
+                        <span>تست پیامک</span>
+                    </button>
+                    <button id="btnActionSync" class="bg-app-card hover:bg-app-cardElevated border border-app-border p-2.5 rounded-xl flex flex-col items-center gap-1 transition-all">
+                        <span class="text-base text-emerald-400">🔄</span>
+                        <span>سینک آنی</span>
+                    </button>
+                    <button id="btnActionShield" class="bg-app-card hover:bg-app-cardElevated border border-app-border p-2.5 rounded-xl flex flex-col items-center gap-1 transition-all">
+                        <span class="text-base text-purple-400">🛡️</span>
+                        <span>فایروال</span>
+                    </button>
+                </div>
+
+                <!-- Bank Cards Carousel -->
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-gray-300">کارت‌های بانکی فعال فروشگاه</span>
+                        <span class="text-[10px] text-brand-400">سقف واریز روزانه</span>
+                    </div>
+
+                    <div class="flex gap-3 overflow-x-auto pb-2">
+                        <!-- Card 1 -->
+                        <div class="min-w-[240px] gradient-mellat rounded-xl p-3 text-white shadow-md">
+                            <div class="flex justify-between items-center text-[10px]">
+                                <div class="gold-chip w-7 h-5 rounded-sm"></div>
+                                <span class="bg-white/20 px-2 py-0.5 rounded-full font-bold">ملت</span>
+                            </div>
+                            <div class="font-mono font-bold text-xs my-2 text-center" dir="ltr">6104-3378-****-5678</div>
+                            <div class="flex justify-between text-[10px] opacity-90 border-t border-white/20 pt-1.5">
+                                <span>امروز: ۳۲ م</span>
+                                <span>سقف: ۵۰ م</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="min-w-[240px] gradient-blu rounded-xl p-3 text-white shadow-md">
+                            <div class="flex justify-between items-center text-[10px]">
+                                <div class="gold-chip w-7 h-5 rounded-sm"></div>
+                                <span class="bg-white/20 px-2 py-0.5 rounded-full font-bold">بلو بانک</span>
+                            </div>
+                            <div class="font-mono font-bold text-xs my-2 text-center" dir="ltr">6219-8610-****-5432</div>
+                            <div class="flex justify-between text-[10px] opacity-90 border-t border-white/20 pt-1.5">
+                                <span>امروز: ۱۸ م</span>
+                                <span>سقف: ۵۰ م</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Orders & Incoming SMS Feed -->
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-gray-300">تراکنش‌ها و پیامک‌های اخیر</span>
+                        <span class="text-[10px] text-gray-500">زنده</span>
+                    </div>
+
+                    <div class="space-y-2 text-xs" id="mobileFeedList">
+                        <!-- Item 1 -->
+                        <div class="bg-app-card border border-app-border p-3 rounded-xl flex items-center justify-between">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-sm">
+                                    ✓
+                                </div>
+                                <div>
+                                    <div class="font-bold text-white flex items-center gap-1">
+                                        <span>سفارش #۱۰۸۴۵</span>
+                                        <span class="text-[10px] text-emerald-400 font-semibold">• خودکار</span>
+                                    </div>
+                                    <div class="text-[10px] text-gray-400">محمد امینی • بانک ملت</div>
+                                </div>
+                            </div>
+                            <div class="text-left">
+                                <div class="font-bold text-white">۲,۴۵۰,۰۰۰ ت</div>
+                                <div class="text-[10px] text-gray-500">۱۱:۴۵</div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="bg-app-card border border-amber-500/30 p-3 rounded-xl flex items-center justify-between">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-sm">
+                                    ⏳
+                                </div>
+                                <div>
+                                    <div class="font-bold text-white flex items-center gap-1">
+                                        <span>سفارش #۱۰۸۴۶</span>
+                                        <span class="text-[10px] text-amber-400 font-semibold">• بررسی دستی</span>
+                                    </div>
+                                    <div class="text-[10px] text-gray-400">مهدی کریمی • تصویر فیش دارد</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <button class="btn-m-approve bg-emerald-600 hover:bg-emerald-500 text-white px-2 py-1 rounded-lg text-[10px] font-bold">
+                                    تایید
+                                </button>
+                                <button class="btn-m-reject bg-gray-700 text-white px-2 py-1 rounded-lg text-[10px]">
+                                    رد
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ================= SCREEN 2: LIVE SMS MONITOR ================= -->
+            <div id="screen-sms" class="screen-view hidden space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold text-white">پایشگر پیامک‌های بانکی دریافتی</span>
+                    <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full">سیستم آنلاین</span>
+                </div>
+
+                <div class="space-y-2 text-xs">
+                    <div class="bg-app-card border border-app-border p-3 rounded-xl space-y-1.5">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-red-400">بانک ملت (Deposit)</span>
+                            <span class="text-[10px] text-gray-500">۱۱:۴۵:۰۲</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 font-mono bg-app-bg p-2 rounded-lg" dir="ltr">
+                            واریز به کارت 610433******5678 مبلغ 24,500,000 ریال پیگیری: 89723415
+                        </p>
+                        <div class="flex justify-between items-center text-[10px]">
+                            <span class="text-emerald-400">✅ تطبیق با سفارش #۱۰۸۴۵</span>
+                            <span class="text-gray-400">تغییر به Completed</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-app-card border border-app-border p-3 rounded-xl space-y-1.5">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-cyan-400">بلو بانک (Saman)</span>
+                            <span class="text-[10px] text-gray-500">۱۰:۲۰:۱۴</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 font-mono bg-app-bg p-2 rounded-lg" dir="ltr">
+                            واریز به حساب 621986******5432 مبلغ 18,500,000 ریال مرجع: 74918230
+                        </p>
+                        <div class="flex justify-between items-center text-[10px]">
+                            <span class="text-emerald-400">✅ تطبیق با سفارش #۱۰۸۴۴</span>
+                            <span class="text-gray-400">تغییر به Processing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SCREEN 3: CAMERA OCR SCANNER ================= -->
+            <div id="screen-scanner" class="screen-view hidden space-y-3 text-center">
+                <span class="text-xs font-bold text-white block">اسکن زنده فیش بانکی با هوش مصنوعی (OCR)</span>
+                
+                <div class="border-2 border-dashed border-brand-500 rounded-2xl h-56 bg-black flex flex-col items-center justify-center p-4 relative overflow-hidden">
+                    <div class="w-full h-0.5 bg-brand-400 shadow-[0_0_12px_#818cf8] animate-bounce absolute top-10"></div>
+                    <span class="text-3xl mb-2">📸</span>
+                    <span class="text-xs text-gray-300">تصویر فیش کاغذی یا اسکرین‌شات را در کادر قرار دهید</span>
+                    <button id="btnRunOcrSample" class="mt-4 bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-lg">
+                        ⚡ اسکن نمونه فیش
+                    </button>
+                </div>
+
+                <div id="ocrResultBox" class="hidden bg-app-card border border-emerald-500/30 p-3 rounded-xl text-right text-xs space-y-1.5">
+                    <div class="font-bold text-emerald-400">✅ اسکن موفق فیش بانکی:</div>
+                    <div class="text-gray-300">مبلغ استخراج شده: <strong class="text-white">۲,۴۵۰,۰۰۰ تومان</strong></div>
+                    <div class="text-gray-300">کد پیگیری تراکنش: <strong class="text-cyan-400 font-mono">۸۹۷۲۳۴۱۵</strong></div>
+                    <div class="text-gray-300">بانک مقصد: <strong class="text-white">بانک ملت</strong></div>
+                    <button class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-lg mt-2 text-xs">
+                        تایید و اعمال بر روی سفارش
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= SCREEN 4: MULTI-STORE MANAGER ================= -->
+            <div id="screen-stores" class="screen-view hidden space-y-3">
+                <span class="text-xs font-bold text-white block">مدیریت فروشگاه‌های متصل به اپلیکیشن</span>
+                
+                <div class="space-y-2 text-xs">
+                    <div class="bg-app-card border border-brand-500/40 p-3 rounded-xl flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-white">فروشگاه آنلاین برتر (اصلی)</div>
+                            <div class="text-[10px] text-gray-400">https://store1.ir • وب‌هوک متصل</div>
+                        </div>
+                        <span class="bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded text-[10px] font-bold">فعال</span>
+                    </div>
+
+                    <div class="bg-app-card border border-app-border p-3 rounded-xl flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-white">فروشگاه پوشاک دیجی‌استایل</div>
+                            <div class="text-[10px] text-gray-400">https://store2.ir • وب‌هوک متصل</div>
+                        </div>
+                        <button class="text-gray-400 hover:text-white text-[10px]">سوئیچ</button>
+                    </div>
+                </div>
+
+                <button class="w-full bg-app-cardElevated border border-dashed border-gray-700 text-gray-300 hover:text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1">
+                    <span>+</span> اتصال فروشگاه جدید با اسکن بارکد QR
+                </button>
+            </div>
+
+            <!-- ================= SCREEN 5: SETTINGS ================= -->
+            <div id="screen-settings" class="screen-view hidden space-y-3 text-xs">
+                <span class="text-xs font-bold text-white block">تنظیمات اپلیکیشن و باتری</span>
+
+                <div class="bg-app-card border border-app-border rounded-xl p-3 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-white">سرویس پس‌زمینه (Background Service)</div>
+                            <div class="text-[10px] text-gray-400">اجرای دائم جهت دریافت پیامک‌ها</div>
+                        </div>
+                        <input type="checkbox" checked class="w-4 h-4 text-brand-500 rounded bg-gray-900 border-gray-700">
+                    </div>
+
+                    <div class="flex justify-between items-center border-t border-app-border pt-2">
+                        <div>
+                            <div class="font-bold text-white">بهینه‌سازی باتری (Battery Whitelist)</div>
+                            <div class="text-[10px] text-emerald-400">مستثنی از حالت ذخیره نیرو ✅</div>
+                        </div>
+                        <span class="text-[10px] text-gray-500">فعال</span>
+                    </div>
+
+                    <div class="flex justify-between items-center border-t border-app-border pt-2">
+                        <div>
+                            <div class="font-bold text-white">قفل بیومتریک (اثر انگشت / FaceID)</div>
+                            <div class="text-[10px] text-gray-400">امنیت ورود به اپلیکیشن</div>
+                        </div>
+                        <input type="checkbox" checked class="w-4 h-4 text-brand-500 rounded bg-gray-900 border-gray-700">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Mobile Bottom Tab Bar -->
+        <div class="h-14 border-t border-app-border bg-app-card/95 backdrop-blur-md px-3 flex items-center justify-around text-center text-[10px] font-bold">
+            <button class="mobile-tab-btn active text-brand-400 flex flex-col items-center gap-0.5" data-screen="screen-home">
+                <span class="text-base">🏠</span>
+                <span>خانه</span>
+            </button>
+            <button class="mobile-tab-btn text-gray-400 hover:text-white flex flex-col items-center gap-0.5" data-screen="screen-sms">
+                <span class="text-base">💬</span>
+                <span>پیامک‌ها</span>
+            </button>
+            <button class="mobile-tab-btn text-gray-400 hover:text-white flex flex-col items-center gap-0.5" data-screen="screen-scanner">
+                <span class="text-base">📸</span>
+                <span>اسکنر OCR</span>
+            </button>
+            <button class="mobile-tab-btn text-gray-400 hover:text-white flex flex-col items-center gap-0.5" data-screen="screen-stores">
+                <span class="text-base">🏬</span>
+                <span>فروشگاه‌ها</span>
+            </button>
+            <button class="mobile-tab-btn text-gray-400 hover:text-white flex flex-col items-center gap-0.5" data-screen="screen-settings">
+                <span class="text-base">⚙️</span>
+                <span>تنظیمات</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Mobile Screen Switcher Script -->
+    <script>
+        document.querySelectorAll('.mobile-tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.mobile-tab-btn').forEach(b => {
+                    b.classList.remove('active', 'text-brand-400');
+                    b.classList.add('text-gray-400');
+                });
+                btn.classList.add('active', 'text-brand-400');
+                btn.classList.remove('text-gray-400');
+
+                const target = btn.getAttribute('data-screen');
+                document.querySelectorAll('.screen-view').forEach(s => s.classList.add('hidden'));
+                document.getElementById(target).classList.remove('hidden');
+            });
+        });
+
+        document.getElementById('quickScanTopBtn')?.addEventListener('click', () => {
+            document.querySelector('[data-screen="screen-scanner"]').click();
+        });
+
+        document.getElementById('btnActionOcr')?.addEventListener('click', () => {
+            document.querySelector('[data-screen="screen-scanner"]').click();
+        });
+
+        document.getElementById('btnActionSimSms')?.addEventListener('click', () => {
+            document.querySelector('[data-screen="screen-sms"]').click();
+        });
+
+        document.getElementById('btnRunOcrSample')?.addEventListener('click', () => {
+            const box = document.getElementById('ocrResultBox');
+            box.classList.remove('hidden');
+        });
+
+        document.querySelectorAll('.btn-m-approve').forEach(b => {
+            b.addEventListener('click', function() {
+                this.closest('.bg-app-card').remove();
+                alert('سفارش با موفقیت از طریق موبایل تایید شد!');
+            });
+        });
+
+        document.querySelectorAll('.btn-m-reject').forEach(b => {
+            b.addEventListener('click', function() {
+                this.closest('.bg-app-card').remove();
+                alert('سفارش رد شد.');
+            });
+        });
+    </script>
+</body>
+</html>
