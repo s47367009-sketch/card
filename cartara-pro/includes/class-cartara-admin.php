@@ -153,7 +153,7 @@ class CartAra_Admin {
     }
 
     public function add_order_metabox() {
-        $screen = class_exists('\Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController') && \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()
+        $screen = class_exists('\Automattic\WooCommerce\Utilities\OrderUtil') && \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()
             ? wc_get_page_screen_id('shop-order')
             : 'shop_order';
 

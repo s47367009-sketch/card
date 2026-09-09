@@ -39,7 +39,7 @@ class CartAra_Core {
 
         // 1. Bank Cards Table
         $cards_table = $wpdb->prefix . 'cartara_cards';
-        $sql_cards = "CREATE TABLE IF NOT EXISTS $cards_table (
+        $sql_cards = "CREATE TABLE $cards_table (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             bank_name varchar(100) NOT NULL,
             bank_slug varchar(50) NOT NULL,
@@ -61,7 +61,7 @@ class CartAra_Core {
 
         // 2. Receipts & Transaction Logs Table
         $receipts_table = $wpdb->prefix . 'cartara_receipts';
-        $sql_receipts = "CREATE TABLE IF NOT EXISTS $receipts_table (
+        $sql_receipts = "CREATE TABLE $receipts_table (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             order_id bigint(20) NOT NULL,
             user_id bigint(20) DEFAULT 0,
@@ -94,49 +94,13 @@ class CartAra_Core {
         dbDelta($sql_cards);
         dbDelta($sql_receipts);
 
-        // Populate sample cards if empty
-        $count = $wpdb->get_var("SELECT COUNT(*) FROM $cards_table");
-        if ($count == 0) {
-            $wpdb->insert($cards_table, [
-                'bank_name' => 'بانک ملت',
-                'bank_slug' => 'mellat',
-                'card_number' => '6104-3378-1234-5678',
-                'sheba_number' => 'IR820120000000001234567890',
-                'account_number' => '1234567890',
-                'account_holder' => 'فروشگاه آنلاین برتر',
-                'daily_limit' => 500000000,
-                'priority' => 1,
-                'is_active' => 1,
-                'card_color' => 'gradient-red',
-                'created_at' => current_time('mysql')
-            ]);
-            $wpdb->insert($cards_table, [
-                'bank_name' => 'بانک سامان (بلو)',
-                'bank_slug' => 'saman',
-                'card_number' => '6219-8610-9876-5432',
-                'sheba_number' => 'IR440560000000009876543210',
-                'account_number' => '9876543210',
-                'account_holder' => 'فروشگاه آنلاین برتر',
-                'daily_limit' => 500000000,
-                'priority' => 2,
-                'is_active' => 1,
-                'card_color' => 'gradient-blue',
-                'created_at' => current_time('mysql')
-            ]);
-            $wpdb->insert($cards_table, [
-                'bank_name' => 'بانک پاسارگاد',
-                'bank_slug' => 'pasargad',
-                'card_number' => '5022-2910-4567-8901',
-                'sheba_number' => 'IR120570000000004567890123',
-                'account_number' => '4567890123',
-                'account_holder' => 'فروشگاه آنلاین برتر',
-                'daily_limit' => 500000000,
-                'priority' => 3,
-                'is_active' => 1,
-                'card_color' => 'gradient-gold',
-                'created_at' => current_time('mysql')
-            ]);
+        // Confirm installation before saving defaults. dbDelta parses plain CREATE TABLE.
+        foreach ([$cards_table, $receipts_table] as $table) {
+            if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->esc_like($table))) !== $table) {
+                return new WP_Error('cartara_database_error', 'ساخت جدول‌های کارت‌آرا ناموفق بود. مجوز CREATE/ALTER پایگاه داده را بررسی کنید.');
+            }
         }
+        // Never seed live payment destinations with fictional bank details.
 
         // Set default options
         if (!get_option('cartara_settings')) {
@@ -171,14 +135,34 @@ class CartAra_Core {
             update_option('cartara_settings', $defaults);
         }
 
-        // Create secure uploads folder with .htaccess protection
-        $upload_dir = wp_upload_dir();
-        $cartara_dir = $upload_dir['basedir'] . '/' . CARTARA_PRO_UPLOAD_DIR_NAME;
-        if (!file_exists($cartara_dir)) {
-            wp_mkdir_p($cartara_dir);
-            file_put_contents($cartara_dir . '/index.html', '<!DOCTYPE html><html><head><title>Access Denied</title></head><body><h1>403 Forbidden</h1></body></html>');
-            file_put_contents($cartara_dir . '/.htaccess', "Options -Indexes\n<FilesMatch \"\.(php|phtml|php3|php4|php5|php7|phps|pl|py|jsp|asp|sh|cgi)$\">\nOrder Deny,Allow\nDeny from all\n</FilesMatch>");
+        $result = self::prepare_upload_directory();
+        if (is_wp_error($result)) {
+            return $result;
         }
+        update_option('cartara_pro_db_version', CARTARA_PRO_VERSION);
+        return true;
+    }
+
+    public static function prepare_upload_directory() {
+        $upload_dir = wp_upload_dir();
+        if (!empty($upload_dir['error'])) {
+            return new WP_Error('cartara_upload_error', 'پوشه بارگذاری وردپرس در دسترس نیست. مجوزهای هاست را بررسی کنید.');
+        }
+        $directory = $upload_dir['basedir'] . '/' . CARTARA_PRO_UPLOAD_DIR_NAME;
+        if (!wp_mkdir_p($directory) || !is_writable($directory)) {
+            return new WP_Error('cartara_upload_error', 'امکان نوشتن در پوشه رسیدهای کارت‌آرا وجود ندارد. مجوزهای هاست را بررسی کنید.');
+        }
+        $files = [
+            'index.html' => '<!DOCTYPE html><title>Access Denied</title>',
+            '.htaccess' => "Options -Indexes\n<FilesMatch \"\\.(php[0-9]*|phtml|phar|phps|pl|py|jsp|asp|sh|cgi)$\">\n<IfModule mod_authz_core.c>\nRequire all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\nOrder Deny,Allow\nDeny from all\n</IfModule>\n</FilesMatch>\n",
+        ];
+        foreach ($files as $name => $contents) {
+            $path = $directory . '/' . $name;
+            if (!file_exists($path) && @file_put_contents($path, $contents) === false) {
+                return new WP_Error('cartara_upload_protection_error', 'ساخت فایل محافظ پوشه رسید ناموفق بود. مجوزهای هاست را بررسی کنید.');
+            }
+        }
+        return true;
     }
 
     public static function deactivate() {

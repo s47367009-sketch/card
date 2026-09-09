@@ -3,9 +3,11 @@ defined('ABSPATH') || exit;
 
 class WC_Gateway_CartAra extends WC_Payment_Gateway {
 
+    public $instructions = '';
+
     public function __construct() {
         $this->id = 'cartara_card';
-        $this->icon = apply_filters('cartara_gateway_icon', CARTARA_PRO_URL . 'assets/images/gateway-icon.png');
+        $this->icon = apply_filters('cartara_gateway_icon', '');
         $this->has_fields = true;
         $this->method_title = __('پرداخت کارت به کارت و فیش بانکی (کارت‌آرا)', 'cartara-pro');
         $this->method_description = __('درگاه پرداخت کارت به کارت هوشمند با کارت‌های شیشه‌ای، کیو‌آرکد، اعتبارسنجی سریع و آپلود مدرن رسید.', 'cartara-pro');

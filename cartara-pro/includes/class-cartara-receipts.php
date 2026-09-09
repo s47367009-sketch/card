@@ -8,6 +8,13 @@ class CartAra_Receipts {
             return new WP_Error('no_file', __('هیچ فایلی برای بارگذاری ارسال نشده است.', 'cartara-pro'));
         }
 
+        if (!isset($file_array['error']) || $file_array['error'] !== UPLOAD_ERR_OK || empty($file_array['tmp_name']) || !is_uploaded_file($file_array['tmp_name'])) {
+            return new WP_Error('upload_error', __('بارگذاری فایل کامل نشده است. محدودیت حجم بارگذاری هاست را بررسی کنید.', 'cartara-pro'));
+        }
+        if (!function_exists('finfo_open')) {
+            return new WP_Error('missing_fileinfo', __('برای بررسی امن رسید، افزونه PHP Fileinfo باید روی هاست فعال باشد.', 'cartara-pro'));
+        }
+
         $settings = get_option('cartara_settings', []);
         $max_mb = isset($settings['max_file_size_mb']) ? intval($settings['max_file_size_mb']) : 10;
         $max_size = $max_mb * 1024 * 1024;
@@ -45,8 +52,9 @@ class CartAra_Receipts {
         $cartara_dir = $wp_upload_dir['basedir'] . '/' . CARTARA_PRO_UPLOAD_DIR_NAME;
         $cartara_url = $wp_upload_dir['baseurl'] . '/' . CARTARA_PRO_UPLOAD_DIR_NAME;
 
-        if (!file_exists($cartara_dir)) {
-            wp_mkdir_p($cartara_dir);
+        $directory_result = CartAra_Core::prepare_upload_directory();
+        if (is_wp_error($directory_result)) {
+            return $directory_result;
         }
 
         // Generate safe randomized filename
