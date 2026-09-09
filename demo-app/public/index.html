@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کارت‌آرا پرو | CartAra Pro - شاهکار پرداخت کارت به کارت ووکامرس</title>
+    <title>کارت‌آرا پرو | CartAra Pro - اکوسیستم جامع پرداخت کارت به کارت (پلاگین + اپلیکیشن موبایل)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -43,14 +43,6 @@
             font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        /* 3D Glass Card Effect */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
         .bank-card-3d {
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
             transform-style: preserve-3d;
@@ -73,10 +65,7 @@
         .gradient-blu { background: linear-gradient(135deg, #0284c7 0%, #38bdf8 50%, #0369a1 100%); }
         .gradient-pasargad { background: linear-gradient(135deg, #b45309 0%, #f59e0b 50%, #78350f 100%); }
         .gradient-melli { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #172554 100%); }
-        .gradient-sepah { background: linear-gradient(135deg, #065f46 0%, #10b981 50%, #064e3b 100%); }
-        .gradient-dark-luxury { background: linear-gradient(135deg, #18181b 0%, #27272a 50%, #09090b 100%); }
 
-        /* Custom Scrollbars */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #374151; border-radius: 9999px; }
@@ -94,17 +83,21 @@
                 </div>
                 <div>
                     <span class="font-black text-lg text-white tracking-tight flex items-center gap-2">
-                        کارت‌آرا پرو
-                        <span class="text-[10px] bg-brand-500/20 text-brand-400 px-2 py-0.5 rounded-full font-bold border border-brand-500/30">v5.0 PRO</span>
+                        کارت‌آرا پرو | CartAra Pro
+                        <span class="text-[10px] bg-brand-500/20 text-brand-400 px-2 py-0.5 rounded-full font-bold border border-brand-500/30">Official v5.0.0</span>
                     </span>
-                    <p class="text-[11px] text-gray-400">پیشرفته‌ترین درگاه کارت به کارت، شبا و تایید خودکار ووکامرس</p>
+                    <p class="text-[11px] text-gray-400">اکوسیستم کامل: افزونه ووکامرس + اپلیکیشن موبایل اندروید + پایش هوشمند پیامک</p>
                 </div>
             </div>
 
             <!-- Global Action Buttons -->
-            <div class="flex items-center gap-3">
-                <a href="/download-plugin" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-lg shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95">
-                    <span>⬇️ دانلود سورس و فایل ZIP افزونه</span>
+            <div class="flex items-center gap-2 sm:gap-3">
+                <a href="/download/plugin" class="inline-flex items-center gap-1.5 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-lg shadow-brand-500/20 transition-all hover:scale-105 active:scale-95" title="دانلود افزونه ووکامرس">
+                    <span>📦 دانلود افزونه ZIP</span>
+                </a>
+
+                <a href="/download/app" class="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-lg shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95" title="دانلود اپلیکیشن اندروید">
+                    <span>📱 دانلود اپلیکیشن APK</span>
                 </a>
 
                 <!-- Dark/Light Mode Switcher -->
@@ -114,25 +107,28 @@
             </div>
         </div>
 
-        <!-- Sub-Navigation Navigation Tabs -->
+        <!-- Sub-Navigation Tabs -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex overflow-x-auto gap-2 py-2 border-t border-dark-border/50">
             <button class="nav-tab active px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all flex items-center gap-2 whitespace-nowrap bg-brand-600 text-white shadow-md shadow-brand-600/30" data-view="view-checkout">
-                <span>🛒 نمای تسویه حساب (Checkout UX)</span>
+                <span>🛒 ۱. تسویه حساب مشتری (Checkout UX)</span>
+            </button>
+            <button class="nav-tab px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl text-gray-400 hover:text-white hover:bg-gray-800 transition-all flex items-center gap-2 whitespace-nowrap" data-view="view-mobileapp">
+                <span>📱 ۲. شبیه‌ساز زنده اپلیکیشن موبایل (Mobile App Live)</span>
             </button>
             <button class="nav-tab px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl text-gray-400 hover:text-white hover:bg-gray-800 transition-all flex items-center gap-2 whitespace-nowrap" data-view="view-admin">
-                <span>📊 پنل داشبورد ادمین (Dashboard)</span>
+                <span>📊 ۳. داشبورد ادمین (Dashboard)</span>
             </button>
             <button class="nav-tab px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl text-gray-400 hover:text-white hover:bg-gray-800 transition-all flex items-center gap-2 whitespace-nowrap" data-view="view-receipts">
-                <span>📑 مدیریت رسیدها و لایت‌باکس (Receipts)</span>
+                <span>📑 ۴. مدیریت فیش‌ها (Receipts Lightbox)</span>
             </button>
             <button class="nav-tab px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl text-gray-400 hover:text-white hover:bg-gray-800 transition-all flex items-center gap-2 whitespace-nowrap" data-view="view-cards">
-                <span>💳 استودیو کارت‌های بانکی (Card Studio)</span>
+                <span>💳 ۵. استودیو کارت‌های بانکی (Card Studio)</span>
             </button>
             <button class="nav-tab px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl text-gray-400 hover:text-white hover:bg-gray-800 transition-all flex items-center gap-2 whitespace-nowrap" data-view="view-sms">
-                <span>⚡ تست هوشمند پیامک بانکی (SMS AI)</span>
+                <span>⚡ ۶. تست هوش مصنوعی پیامک (SMS AI)</span>
             </button>
             <button class="nav-tab px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl text-gray-400 hover:text-white hover:bg-gray-800 transition-all flex items-center gap-2 whitespace-nowrap" data-view="view-features">
-                <span>🌟 لیست ۵۰ قابلیت افزونه</span>
+                <span>🌟 ۷. راهنمای ۵۰ امکان و ریلیزها</span>
             </button>
         </div>
     </header>
@@ -147,25 +143,25 @@
                 <div class="flex items-center gap-3">
                     <span class="text-2xl">✨</span>
                     <div>
-                        <h3 class="text-sm font-bold text-brand-300">نمای فرانت‌اند و درگاه پرداخت کارت به کارت در ووکامرس</h3>
-                        <p class="text-xs text-gray-400">طراحی سه‌بعدی گلس‌مورفیسم، تشخیص خودکار بانک، دکمه‌های کپی هوشمند و آپلود پیشرفته فیش</p>
+                        <h3 class="text-sm font-bold text-brand-300">تجربه تسویه‌حساب مشتری در ووکامرس (Checkout Front-End)</h3>
+                        <p class="text-xs text-gray-400">کارت‌های ۳ بعدی با افکت شناور شیشه‌ای، تشخیص خودکار بانک، دکمه‌های کپی و آپلود درگ‌اند‌دراپ</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
                     <span class="text-xs bg-brand-500/20 text-brand-300 px-3 py-1 rounded-lg">سفارش شماره #۱۰۸۴۵</span>
-                    <span class="text-xs font-bold text-white bg-brand-600 px-3 py-1 rounded-lg">مبلغ: ۲,۵۰۰,۰۰۰ تومان</span>
+                    <span class="text-xs font-bold text-white bg-brand-600 px-3 py-1 rounded-lg">مبلغ: ۲,۴۵۰,۰۰۰ تومان</span>
                 </div>
             </div>
 
             <!-- WooCommerce Checkout Simulation Container -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 
-                <!-- Left: Order Summary (Simulated) -->
+                <!-- Left: Order Summary -->
                 <div class="lg:col-span-4 space-y-4">
                     <div class="bg-dark-card border border-dark-border rounded-2xl p-5 shadow-xl">
                         <h4 class="font-bold text-sm text-white mb-4 flex items-center justify-between">
-                            <span>📦 جزئیات سفارش شما</span>
-                            <span class="text-xs font-normal text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full">رزرو انبار فعال</span>
+                            <span>📦 جزئیات فاکتور خرید</span>
+                            <span class="text-xs font-normal text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full">رزرو انبار فعال ✅</span>
                         </h4>
 
                         <div class="space-y-3 text-xs border-b border-dark-border pb-4">
@@ -215,8 +211,8 @@
                         <div class="flex items-center gap-2.5">
                             <span class="text-xl animate-pulse">⏳</span>
                             <div>
-                                <div class="text-xs font-bold text-amber-300">مهلت پرداخت و تکمیل سفارش:</div>
-                                <div class="text-[11px] text-gray-400">محصولات سبد خرید تا پایان این زمان برای شما رزرو خواهند ماند.</div>
+                                <div class="text-xs font-bold text-amber-300">مهلت پرداخت و ثبت فیش:</div>
+                                <div class="text-[11px] text-gray-400">موجودی انبار کالا تا پایان این زمان برای شما رزرو خواهد ماند.</div>
                             </div>
                         </div>
                         <div class="text-right">
@@ -421,7 +417,29 @@
             </div>
         </div>
 
-        <!-- ================= VIEW 2: ADMIN DASHBOARD ================= -->
+        <!-- ================= VIEW 2: MOBILE COMPANION APP LIVE EMULATOR ================= -->
+        <div id="view-mobileapp" class="view-content hidden space-y-6 animate-fadeIn">
+            <div class="bg-dark-card border border-dark-border p-5 rounded-2xl shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div>
+                    <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                        <span>📱</span> اپلیکیشن موبایل همراه کارت‌آرا پرو (Android Companion App)
+                    </h2>
+                    <p class="text-xs text-gray-400 mt-1">امولاتور زنده اپلیکیشن موبایل با قابلیت پایش پیامک‌های بانکی، اسکنر OCR، تایید خودکار و اتصال چند فروشگاه</p>
+                </div>
+                <a href="/download/app" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+                    <span>⬇️</span> دانلود مستقیم فایل APK اندروید
+                </a>
+            </div>
+
+            <!-- Phone Frame Embed -->
+            <div class="flex justify-center py-4">
+                <div class="w-full max-w-[420px] h-[820px] rounded-[48px] border-[10px] border-gray-800 bg-black shadow-2xl overflow-hidden relative">
+                    <iframe src="/mobile" class="w-full h-full border-none"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW 3: ADMIN DASHBOARD ================= -->
         <div id="view-admin" class="view-content hidden space-y-6 animate-fadeIn">
             <!-- Dashboard Top Banner -->
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-dark-card border border-dark-border p-5 rounded-2xl shadow-xl">
@@ -525,7 +543,7 @@
             </div>
         </div>
 
-        <!-- ================= VIEW 3: RECEIPTS MANAGER ================= -->
+        <!-- ================= VIEW 4: RECEIPTS MANAGER ================= -->
         <div id="view-receipts" class="view-content hidden space-y-6 animate-fadeIn">
             <div class="bg-dark-card border border-dark-border p-5 rounded-2xl shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div>
@@ -567,7 +585,6 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-dark-border text-gray-300" id="receiptsTableBody">
-                            <!-- Row 1 -->
                             <tr class="hover:bg-gray-800/40 transition-colors">
                                 <td class="p-4 font-mono font-bold text-brand-400">#۱۰۸۴۵</td>
                                 <td class="p-4">
@@ -593,7 +610,6 @@
                                 </td>
                             </tr>
 
-                            <!-- Row 2 -->
                             <tr class="hover:bg-gray-800/40 transition-colors">
                                 <td class="p-4 font-mono font-bold text-brand-400">#۱۰۸۴۴</td>
                                 <td class="p-4">
@@ -615,7 +631,6 @@
                                 </td>
                             </tr>
 
-                            <!-- Row 3 -->
                             <tr class="hover:bg-gray-800/40 transition-colors">
                                 <td class="p-4 font-mono font-bold text-brand-400">#۱۰۸۴۰</td>
                                 <td class="p-4">
@@ -642,7 +657,7 @@
             </div>
         </div>
 
-        <!-- ================= VIEW 4: BANK CARD STUDIO ================= -->
+        <!-- ================= VIEW 5: BANK CARD STUDIO ================= -->
         <div id="view-cards" class="view-content hidden space-y-6 animate-fadeIn">
             <div class="bg-dark-card border border-dark-border p-5 rounded-2xl shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div>
@@ -657,7 +672,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Live Visual Card 1 -->
+                <!-- Card 1 -->
                 <div class="bank-card-3d gradient-mellat rounded-2xl p-5 text-white relative shadow-xl">
                     <div class="flex justify-between items-center mb-4">
                         <div class="gold-chip w-10 h-7 rounded-md"></div>
@@ -681,7 +696,7 @@
                     </div>
                 </div>
 
-                <!-- Live Visual Card 2 -->
+                <!-- Card 2 -->
                 <div class="bank-card-3d gradient-blu rounded-2xl p-5 text-white relative shadow-xl">
                     <div class="flex justify-between items-center mb-4">
                         <div class="gold-chip w-10 h-7 rounded-md"></div>
@@ -705,7 +720,7 @@
                     </div>
                 </div>
 
-                <!-- Live Visual Card 3 -->
+                <!-- Card 3 -->
                 <div class="bank-card-3d gradient-pasargad rounded-2xl p-5 text-white relative shadow-xl">
                     <div class="flex justify-between items-center mb-4">
                         <div class="gold-chip w-10 h-7 rounded-md"></div>
@@ -731,7 +746,7 @@
             </div>
         </div>
 
-        <!-- ================= VIEW 5: SMS AI & WEBHOOK SIMULATOR ================= -->
+        <!-- ================= VIEW 6: SMS AI SIMULATOR ================= -->
         <div id="view-sms" class="view-content hidden space-y-6 animate-fadeIn">
             <div class="bg-dark-card border border-dark-border p-5 rounded-2xl shadow-xl">
                 <h2 class="text-lg font-bold text-white flex items-center gap-2">
@@ -747,7 +762,6 @@
                         <label class="text-xs font-bold text-gray-200">متن پیامک دریافتی از بانک را بنویسید یا یک نمونه انتخاب کنید:</label>
                     </div>
 
-                    <!-- Preset sample buttons -->
                     <div class="flex flex-wrap gap-2 text-xs">
                         <button class="sms-preset-btn bg-dark-bg border border-dark-border hover:border-brand-500 text-gray-300 px-3 py-1.5 rounded-lg" data-sms="واریز به کارت ۶۱۰۴۳۳۷۸۱۲۳۴۵۶۷۸&#10;مبلغ: ۲,۴۵۰,۰۰۰ تومان&#10;پیگیری: ۸۹۷۲۳۴۱۵&#10;مانده: ۱۵,۸۰۰,۰۰۰ تومان">
                             بانک ملت (تومان)
@@ -801,13 +815,23 @@
             </div>
         </div>
 
-        <!-- ================= VIEW 6: FEATURE DIRECTORY ================= -->
+        <!-- ================= VIEW 7: FEATURE DIRECTORY ================= -->
         <div id="view-features" class="view-content hidden space-y-6 animate-fadeIn">
-            <div class="bg-dark-card border border-dark-border p-5 rounded-2xl shadow-xl">
-                <h2 class="text-lg font-bold text-white flex items-center gap-2">
-                    <span>🌟</span> تجمیع تمام ۵۰ امکان حرفه‌ای در افزونه کارت‌آرا پرو (CartAra Pro)
-                </h2>
-                <p class="text-xs text-gray-400 mt-1">مقایسه و جمع‌بندی کامل امکانات کشف‌شده از تمام پلاگین‌های کارت به کارت بازار ایران و جهان</p>
+            <div class="bg-dark-card border border-dark-border p-5 rounded-2xl shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div>
+                    <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                        <span>🌟</span> پکیج‌های رسمی CartAra Pro v5.0.0 و فهرست ۵۰ امکان کامل
+                    </h2>
+                    <p class="text-xs text-gray-400 mt-1">تلفیق نوآورانه‌ترین فناوری‌های پرداخت، اپلیکیشن موبایل، هوش مصنوعی OCR و تایید خودکار</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="/download/plugin" class="bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold px-4 py-2 rounded-xl">
+                        ⬇️ دانلود افزونه
+                    </a>
+                    <a href="/download/app" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl">
+                        ⬇️ دانلود اپلیکیشن
+                    </a>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
@@ -826,14 +850,14 @@
 
                 <!-- Cat 2 -->
                 <div class="bg-dark-card border border-dark-border p-4 rounded-xl space-y-2">
-                    <h4 class="font-bold text-emerald-400 text-sm flex items-center gap-1.5"><span>⚡</span> ۲. تایید خودکار و وب‌هوک</h4>
+                    <h4 class="font-bold text-emerald-400 text-sm flex items-center gap-1.5"><span>⚡</span> ۲. اپلیکیشن موبایل و تایید خودکار</h4>
                     <ul class="space-y-1.5 text-gray-300">
-                        <li>✅ اتصال مستقیم وب‌هوک به اپلیکیشن‌های فورواردر پیامک اندروید</li>
-                        <li>✅ پارسر هوشمند پیامک تمامی بانک‌ها (ملی، ملت، بلو، سامان و...)</li>
-                        <li>✅ الگوریتم مبالغ یونیک (تلت استایل) جهت تفکیک دقیق تراکنش‌ها</li>
-                        <li>✅ بازه زمانی انقضا و بازه مجاز تطبیق (Grace Period)</li>
-                        <li>✅ جلوگیری ۱۰۰٪ از پردازش پیامک‌های تکراری و مشکوک</li>
-                        <li>✅ تایید آنی ۲۴ ساعته بدون نیاز به دخالت انسان</li>
+                        <li>✅ اپلیکیشن همراه اندروید اختصاصی با پایش ۲۴/۷ پیامک</li>
+                        <li>✅ اسکنر OCR دوربین برای استخراج ارقام فیش بانکی</li>
+                        <li>✅ اتصال هم‌زمان چند فروشگاه ووکامرسی به یک موبایل</li>
+                        <li>✅ الگوریتم مبالغ یونیک (تلت استایل) جهت تفکیک تراکنش‌ها</li>
+                        <li>✅ تایید آنی ۲۴ ساعته بدون نیاز به دخالت اپراتور</li>
+                        <li>✅ اجرای پایدار در پس‌زمینه با سرویس Foreground اندروید</li>
                     </ul>
                 </div>
 
@@ -911,8 +935,8 @@
                 </button>
                 <div class="flex gap-2">
                     <button id="modalApproveBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-1.5 rounded-lg font-bold">✅ تایید پرداخت</button>
-                    <button id="modalRejectBtn" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1.5 rounded-lg font-bold">❌ رد</button>
-                    <button id="modalPhishBtn" class="bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded-lg font-bold">🛡️ فیشینگ</button>
+                    <button id="modalRejectBtn" class="bg-gray-700 hover:bg-gray-600 text-white px-3.5 py-1.5 rounded-lg font-bold">❌ رد</button>
+                    <button id="modalPhishBtn" class="bg-red-600 hover:bg-red-500 text-white px-3.5 py-1.5 rounded-lg font-bold">🛡️ فیشینگ</button>
                 </div>
             </div>
         </div>
@@ -926,7 +950,6 @@
 
     <!-- JavaScript Interactive Handlers -->
     <script>
-        // Navigation Tab Switching
         document.querySelectorAll('.nav-tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.nav-tab').forEach(t => {
@@ -948,7 +971,6 @@
             });
         });
 
-        // Theme Toggle (Dark / Light)
         const themeToggle = document.getElementById('themeToggle');
         themeToggle.addEventListener('click', () => {
             document.documentElement.classList.toggle('dark');
@@ -959,7 +981,6 @@
             }
         });
 
-        // Toast Helper
         function showToast(msg, icon = '📋') {
             const toast = document.getElementById('toastNotification');
             document.getElementById('toastMessage').innerText = msg;
@@ -970,7 +991,6 @@
             }, 3000);
         }
 
-        // Copy Helper
         function copyText(text) {
             const clean = text.replace(/[^0-9a-zA-Z]/g, '');
             navigator.clipboard.writeText(clean).then(() => {
@@ -987,7 +1007,6 @@
             });
         });
 
-        // Subtabs for Payment Methods (Card / Sheba / Account / QR)
         document.querySelectorAll('.pay-subtab').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.pay-subtab').forEach(b => {
@@ -1007,7 +1026,6 @@
             });
         });
 
-        // Copy active buttons
         document.getElementById('copyActiveCardBtn')?.addEventListener('click', () => {
             const selectedCard = document.querySelector('.bank-card-3d.selected-card');
             if (selectedCard) copyText(selectedCard.getAttribute('data-num'));
@@ -1023,7 +1041,6 @@
             if (selectedCard) copyText(selectedCard.getAttribute('data-acc'));
         });
 
-        // Card Selection in Grid
         document.querySelectorAll('.bank-card-3d').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.bank-card-3d').forEach(c => {
@@ -1048,7 +1065,6 @@
             return num.replace(/(\d{4})(?=\d)/g, '$1-');
         }
 
-        // Split Payment Checkbox
         document.getElementById('splitPaymentCheckbox')?.addEventListener('change', function() {
             const box = document.getElementById('splitPaymentBox');
             if (this.checked) {
@@ -1058,7 +1074,6 @@
             }
         });
 
-        // Bank BIN detection on input
         const bins = {
             '603799': 'بانک ملی ایران',
             '610433': 'بانک ملت',
@@ -1098,7 +1113,6 @@
             }
         });
 
-        // Dropzone preview
         const receiptFileInput = document.getElementById('receiptFileInput');
         const dropzonePrompt = document.getElementById('dropzonePrompt');
         const dropzonePreview = document.getElementById('dropzonePreview');
@@ -1128,7 +1142,6 @@
             dropzonePrompt.classList.remove('hidden');
         });
 
-        // Checkout submit simulation
         document.getElementById('checkoutForm')?.addEventListener('submit', function(e) {
             e.preventDefault();
             showToast('سفارش با موفقیت ثبت شد و فیش به واحد تایید ارسال گردید!', '🎉');
@@ -1137,7 +1150,6 @@
             }, 500);
         });
 
-        // 15-Minute Countdown Clock
         let remainingSeconds = 14 * 60 + 52;
         setInterval(() => {
             if (remainingSeconds > 0) {
@@ -1149,7 +1161,6 @@
             }
         }, 1000);
 
-        // QR Code Drawing
         function drawDemoQr() {
             const canvas = document.getElementById('checkoutQrCanvas');
             if (!canvas) return;
@@ -1160,7 +1171,6 @@
             const size = 140;
             const b = 5;
 
-            // Draw corner squares
             function box(x, y, s) {
                 ctx.fillRect(x, y, s, s);
                 ctx.clearRect(x + 4, y + 4, s - 8, s - 8);
@@ -1170,7 +1180,6 @@
             box(size - 40, 10, 30);
             box(10, size - 40, 30);
 
-            // Pattern
             for (let x = 10; x < size - 10; x += b) {
                 for (let y = 10; y < size - 10; y += b) {
                     if ((x < 45 && y < 45) || (x > size - 45 && y < 45) || (x < 45 && y > size - 45)) continue;
@@ -1180,7 +1189,6 @@
                 }
             }
 
-            // Center logo
             ctx.fillStyle = '#6366f1';
             ctx.fillRect(size/2 - 12, size/2 - 12, 24, 24);
             ctx.fillStyle = '#ffffff';
@@ -1189,7 +1197,6 @@
         }
         drawDemoQr();
 
-        // Lightbox Modal
         let curRotation = 0;
         const receiptModal = document.getElementById('receiptModal');
         const modalReceiptImg = document.getElementById('modalReceiptImg');
@@ -1233,7 +1240,6 @@
             receiptModal.classList.add('hidden');
         });
 
-        // SMS AI Tester
         document.querySelectorAll('.sms-preset-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.getElementById('smsInputArea').value = btn.getAttribute('data-sms');
@@ -1267,7 +1273,6 @@
             });
         }
 
-        // Charts Initialization
         let chartInstance = null;
         let bankChartInstance = null;
 
