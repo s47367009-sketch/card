@@ -1,3 +1,9 @@
+# آخرین نسخه افزونه: ۵.۰.۱
+
+[صفحه ریلیز و دانلود ZIP](https://github.com/s47367009-sketch/card/releases/tag/v5.0.1) — [یادداشت‌های اصلاح نصب](v5.0.1.md)
+
+---
+
 # 🚀 CartAra Pro Release v5.0.0 (Official Release)
 
 ## 📦 پکیج‌های رسمی منتشر شده
